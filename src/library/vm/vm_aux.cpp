@@ -69,8 +69,7 @@ vm_obj vm_try_for_time (vm_obj const &, vm_obj const & n, vm_obj const & thunk) 
   try {
     if (auto r = get_vm_state().try_invoke_catch(thunk, 1, &unit)) {
       result = mk_vm_some(*r);
-    }
-    else {
+    } else {
       result = mk_vm_none();
     }
   }
@@ -79,7 +78,7 @@ vm_obj vm_try_for_time (vm_obj const &, vm_obj const & n, vm_obj const & thunk) 
   }
   killer.join();
   return result;
-}  
+}
 
 void initialize_vm_aux() {
     DECLARE_VM_BUILTIN("timeit",           vm_timeit);
