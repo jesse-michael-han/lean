@@ -13,6 +13,7 @@ Author: Leonardo de Moura
 #include "library/vm/vm_option.h"
 #include "library/vm/vm_nat.h"
 
+
 namespace lean {
 vm_obj vm_timeit(vm_obj const &, vm_obj const & s, vm_obj const & fn) {
     std::string msg = to_string(s);
@@ -62,24 +63,19 @@ vm_obj vm_try_for_time (vm_obj const &, vm_obj const & n, vm_obj const & thunk) 
   lthread killer([=] () {
     this_thread::sleep_for(chrono::milliseconds(max));
     cancel(ctok);
-  });
+  });    
   scope_cancellation_token scope1(ctok);
   vm_obj unit = mk_vm_unit();
   vm_obj result;
-  try {
-    if (auto r = get_vm_state().try_invoke_catch(thunk, 1, &unit)) {
-      result = mk_vm_some(*r);
-    } else {
-      result = mk_vm_none();
-    }
-  }
-  catch (lean::interrupted) {
-    result =  mk_vm_none();
+  if (auto r = get_vm_state().try_invoke_catch(thunk, 1, &unit)) {
+    result = mk_vm_some(*r);
+  } else {
+    result = mk_vm_none();
   }
   killer.join();
   return result;
 }
-
+  
 void initialize_vm_aux() {
     DECLARE_VM_BUILTIN("timeit",           vm_timeit);
     DECLARE_VM_BUILTIN("trace",            vm_trace);

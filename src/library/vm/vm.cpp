@@ -2389,6 +2389,21 @@ optional<vm_obj> vm_state::try_invoke_catch(vm_obj const & fn, unsigned nargs, v
             while (m_call_stack.size() > call_stack_sz) m_call_stack.pop_back();
         }
         return optional<vm_obj>();
+    } catch (lean::interrupted) {
+        m_code           = code;
+        m_fn_idx         = fn_idx;
+        m_pc             = pc;
+        m_bp             = bp;
+        m_next_frame_idx = next_frame_idx;
+        m_stack.resize(stack_sz);
+        m_stack_info.resize(stack_info_sz);
+        if (m_profiling) {
+            unique_lock<mutex> lk(m_call_stack_mtx);
+            while (m_call_stack.size() > call_stack_sz) m_call_stack.pop_back();
+        } else {
+            while (m_call_stack.size() > call_stack_sz) m_call_stack.pop_back();
+        }
+        return optional<vm_obj>();
     }
 }
 
