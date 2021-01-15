@@ -72,7 +72,6 @@ vm_obj vm_try_for_time (vm_obj const &, vm_obj const & n, vm_obj const & thunk) 
   } else {
     result = mk_vm_none();
   }
-  killer.join();
   return result;
 }
 
