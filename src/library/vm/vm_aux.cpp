@@ -76,7 +76,7 @@ vm_obj vm_try_for_time (vm_obj const &, vm_obj const & n, vm_obj const & thunk) 
   } else {
     result = mk_vm_none();
   }
-  { unique_lock<mutex> lock(killer_mutex); finished=true; }
+  { unique_lock<mutex> lock(killer_mutex); finished = true; }
   wake_up_killer.notify_one();
   killer.join();
   return result;
