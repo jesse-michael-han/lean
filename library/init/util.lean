@@ -35,6 +35,10 @@ f ()
 meta def try_for {α : Type u} (max : nat) (f : thunk α) : option α :=
 some (f ())
 
+/--
+  This function has a native implementation where
+  the thunk is interrupted if it takes more than 'max' milliseconds to compute it.
+  This is useful due to the variance in the number of heartbeats used by tactics. -/
 meta def try_for_time {α : Type u} (max : ℕ) (f : thunk α) : option α :=
 some (f ())
 

@@ -58,7 +58,7 @@ vm_obj vm_try_for(vm_obj const &, vm_obj const & n, vm_obj const & thunk) {
 }
 
 vm_obj vm_try_for_time (vm_obj const &, vm_obj const & n, vm_obj const & thunk) {
-  size_t max = static_cast<size_t> (force_to_unsigned(n))*1000; // n = # secs, max = # millisecs
+  size_t max = static_cast<size_t> (force_to_unsigned(n)); // n = # millisecs, max = # millisecs
   auto ctok = mk_cancellation_token(global_cancellation_token());
   condition_variable wake_up_killer;
   mutex killer_mutex;
