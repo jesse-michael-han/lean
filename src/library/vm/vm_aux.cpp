@@ -63,7 +63,7 @@ vm_obj vm_try_for_time (vm_obj const &, vm_obj const & n, vm_obj const & thunk) 
   lthread killer([=] () {
     this_thread::sleep_for(chrono::milliseconds(max));
     cancel(ctok);
-  });    
+  });
   scope_cancellation_token scope1(ctok);
   vm_obj unit = mk_vm_unit();
   vm_obj result;
@@ -75,7 +75,7 @@ vm_obj vm_try_for_time (vm_obj const &, vm_obj const & n, vm_obj const & thunk) 
   killer.join();
   return result;
 }
-  
+
 void initialize_vm_aux() {
     DECLARE_VM_BUILTIN("timeit",           vm_timeit);
     DECLARE_VM_BUILTIN("trace",            vm_trace);
