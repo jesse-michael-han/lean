@@ -137,7 +137,9 @@ static name * g_have       = nullptr;
 static name * g_show       = nullptr;
 static name * g_suffices   = nullptr;
 static name * g_checkpoint = nullptr;
+static name * g_proof_recording = nullptr;
 
+expr mk_proof_recording_annotation(expr const & e) { return mk_annotation(*g_proof_recording, e); }
 expr mk_have_annotation(expr const & e) { return mk_annotation(*g_have, e); }
 expr mk_show_annotation(expr const & e) { return mk_annotation(*g_show, e); }
 expr mk_suffices_annotation(expr const & e) { return mk_annotation(*g_suffices, e); }
@@ -155,7 +157,9 @@ void initialize_annotation() {
     g_show       = new name("show");
     g_suffices   = new name("suffices");
     g_checkpoint = new name("checkpoint");
+    g_proof_recording = new name("proof_recording");
 
+    register_annotation(*g_proof_recording);
     register_annotation(*g_have);
     register_annotation(*g_show);
     register_annotation(*g_suffices);
@@ -179,5 +183,6 @@ void finalize_annotation() {
     delete g_annotation_macros;
     delete g_annotation_opcode;
     delete g_annotation;
+    delete g_proof_recording;
 }
 }

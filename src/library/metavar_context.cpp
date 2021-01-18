@@ -8,6 +8,7 @@ Author: Leonardo de Moura
 #include "kernel/for_each_fn.h"
 #include "library/metavar_util.h"
 #include "library/metavar_context.h"
+#include "library/annotation.h"
 
 namespace lean {
 static name *       g_meta_prefix;
@@ -101,7 +102,7 @@ void metavar_context::assign(level const & u, level const & l) {
 }
 
 void metavar_context::assign(expr const & e, expr const & v) {
-    m_eassignment.insert(mlocal_name(e), v);
+  m_eassignment.insert(mlocal_name(e), mk_proof_recording_annotation (v) );
 }
 
 optional<level> metavar_context::get_assignment(level const & l) const {

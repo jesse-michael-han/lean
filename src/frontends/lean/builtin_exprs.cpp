@@ -42,6 +42,7 @@ Author: Leonardo de Moura
 #endif
 
 namespace lean {
+
 static name * g_parser_checkpoint_have = nullptr;
 
 bool get_parser_checkpoint_have(options const & opts) {
