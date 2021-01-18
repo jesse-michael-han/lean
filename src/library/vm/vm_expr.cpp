@@ -484,6 +484,12 @@ vm_obj expr_is_annotation(vm_obj const &, vm_obj const & _e) {
     }
 }
 
+vm_obj expr_mk_annotation(vm_obj const&, vm_obj const & _e, vm_obj const & _n) {
+  expr const &e = to_expr(_e);
+  name const &n = to_name(_n);
+  return to_obj(mk_annotation(n, e));
+}
+
 vm_obj reflect_expr(vm_obj const & elab, vm_obj const & e) {
     if (to_bool(elab))
         return to_obj(mk_elaborated_expr_quote(to_expr(e)));
@@ -578,6 +584,7 @@ void initialize_vm_expr() {
 
     DECLARE_VM_BUILTIN(name("expr", "is_annotation"),      expr_is_annotation);
     DECLARE_VM_BUILTIN(name("expr", "is_string_macro"),    expr_is_string_macro);
+    DECLARE_VM_BUILTIN(name("expr", "mk_annotation"),      expr_mk_annotation);
 
     DECLARE_VM_BUILTIN(name("expr", "mk_sorry"), expr_mk_sorry);
     DECLARE_VM_BUILTIN(name("expr", "is_sorry"), expr_is_sorry);

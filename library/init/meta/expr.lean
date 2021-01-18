@@ -124,6 +124,8 @@ meta constant expr.is_annotation : expr elab → option (name × expr elab)
 
 meta constant expr.is_string_macro : expr elab → option (expr elab)
 
+meta constant expr.mk_annotation : expr elab → name → expr elab
+
 /-- Remove all macro annotations from the given `expr`. -/
 meta def expr.erase_annotations : expr elab → expr elab
 | e :=
