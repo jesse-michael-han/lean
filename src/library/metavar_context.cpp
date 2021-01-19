@@ -102,8 +102,8 @@ void metavar_context::assign(level const & u, level const & l) {
 }
 
 void metavar_context::assign(expr const & e, expr const & v) {
-  // m_eassignment.insert(mlocal_name(e), mk_proof_recording_annotation (v) );
-  m_eassignment.insert(mlocal_name(e), v);
+  m_eassignment.insert(mlocal_name(e), mk_proof_recording_annotation (v) );
+  // m_eassignment.insert(mlocal_name(e), v);
 }
 
 optional<level> metavar_context::get_assignment(level const & l) const {
