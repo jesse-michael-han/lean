@@ -53,6 +53,8 @@ expr const & get_nested_annotation_arg(expr const & e);
 /** \brief Copy annotation from \c from to \c to. */
 expr copy_annotations(expr const & from, expr const & to);
 
+expr mk_proof_recording_annotation(expr const & e);  
+
 /** \brief Tag \c e as a 'have'-expression. 'have' is a pre-registered annotation. */
 expr mk_have_annotation(expr const & e);
 /** \brief Tag \c e as a 'show'-expression. 'show' is a pre-registered annotation. */

@@ -133,10 +133,11 @@ expr copy_annotations(expr const & from, expr const & to) {
     return r;
 }
 
-static name * g_have       = nullptr;
-static name * g_show       = nullptr;
-static name * g_suffices   = nullptr;
-static name * g_checkpoint = nullptr;
+static name * g_have            = nullptr;
+static name * g_show            = nullptr;
+static name * g_suffices        = nullptr;
+static name * g_checkpoint      = nullptr;
+static name * g_proof_recording = nullptr;
 
 expr mk_have_annotation(expr const & e) { return mk_annotation(*g_have, e); }
 expr mk_show_annotation(expr const & e) { return mk_annotation(*g_show, e); }
@@ -146,6 +147,8 @@ bool is_have_annotation(expr const & e) { return is_annotation(e, *g_have); }
 bool is_show_annotation(expr const & e) { return is_annotation(e, *g_show); }
 bool is_suffices_annotation(expr const & e) { return is_annotation(e, *g_suffices); }
 bool is_checkpoint_annotation(expr const & e) { return is_annotation(e, *g_checkpoint); }
+expr mk_proof_recording_annotation(expr const & e) { return mk_annotation(*g_proof_recording, e); }
+bool is_proof_recording_annotation(expr const & e) { return is_annotation(e, *g_proof_recording); }  
 
 void initialize_annotation() {
     g_annotation = new name("annotation");
@@ -155,11 +158,13 @@ void initialize_annotation() {
     g_show       = new name("show");
     g_suffices   = new name("suffices");
     g_checkpoint = new name("checkpoint");
+    g_proof_recording = new name("proof_recording");
 
     register_annotation(*g_have);
     register_annotation(*g_show);
     register_annotation(*g_suffices);
     register_annotation(*g_checkpoint);
+    register_annotation(*g_proof_recording);    
 
     register_macro_deserializer(get_annotation_opcode(),
                                 [](deserializer & d, unsigned num, expr const * args) {
@@ -179,5 +184,6 @@ void finalize_annotation() {
     delete g_annotation_macros;
     delete g_annotation_opcode;
     delete g_annotation;
+    delete g_proof_recording;
 }
 }
